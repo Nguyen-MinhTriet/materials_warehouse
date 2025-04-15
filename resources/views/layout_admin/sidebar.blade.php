@@ -1,22 +1,21 @@
     <div class="leftside-menu menuitem-active">
-
             <!-- Brand Logo Light -->
             <a href="index.html" class="logo logo-light">
-                <span class="logo-lg">
-                    <img src="assets/images/logo.png" alt="logo">
+                <span class="logo-lg" height="100px">
+                    <img src="{{ asset('assets/system/logo_kholua.png')}}" alt="logo">
                 </span>
                 <span class="logo-sm">
-                    <img src="assets/images/logo-sm.png" alt="small logo">
+                    <img src="{{ asset('assets/system/logo_kholua.png')}}" alt="small logo">
                 </span>
             </a>
 
             <!-- Brand Logo Dark -->
             <a href="index.html" class="logo logo-dark">
-                <span class="logo-lg">
-                    <img src="assets/images/logo-dark.png" alt="dark logo">
+                <span class="logo-lg" height="100px">
+                    <img src="{{ asset('assets/system/logo_kholua.png')}}" alt="dark logo">
                 </span>
                 <span class="logo-sm">
-                    <img src="assets/images/logo-dark-sm.png" alt="small logo">
+                    <img src="{{ asset('assets/system/logo_kholua.png')}}" alt="small logo">
                 </span>
             </a>
 
@@ -63,7 +62,7 @@
                        class="side-nav-link">
                         <i class="uil-layer-group"></i>
                         <span>
-                        Colections
+                        QUẢN LÝ HÀNG HOÁ
                     </span>
                         <span class="menu-arrow"></span>
                     </a>
@@ -72,19 +71,175 @@
                             <li>
                                 <a href="#">
                                     <i class="uil-shop"></i>
-                                    Citys
+                                    Danh Mục
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <i class="uil-store-alt"></i>
-                                    Districts
+                                    Vật Tư
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
                                     <i class="uil-store"></i>
-                                    Wards
+                                    Đơn Vị Tính
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarColections" aria-expanded="false"
+                       aria-controls="sidebarColections"
+                       class="side-nav-link">
+                        <i class="uil-layer-group"></i>
+                        <span>
+                        QUẢN LÝ KHO
+                    </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarColections">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="#">
+                                    <i class="uil-shop"></i>
+                                    Kho
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Tổng Quan Kho
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="side-nav-item">
+                    <a href="#" class="side-nav-link">
+                        <i class="dripicons-store font-17"></i>
+                        <span>
+                        Quản Lý NCC
+                    </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarColections" aria-expanded="false"
+                       aria-controls="sidebarColections"
+                       class="side-nav-link">
+                        <i class="uil-layer-group"></i>
+                        <span>
+                        QUẢN LÝ NHẬP / XUẤT
+                    </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarColections">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="#">
+                                    <i class="uil-shop"></i>
+                                    Phiếu Nhập
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Phiếu Xuất
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Phương Thức Thanh Toán
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="side-nav-item">
+                    <a href="#" class="side-nav-link">
+                        <i class="dripicons-store font-17"></i>
+                        <span>
+                        QUẢN LÝ NCC
+                    </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarColections" aria-expanded="false"
+                       aria-controls="sidebarColections"
+                       class="side-nav-link">
+                        <i class="uil-layer-group"></i>
+                        <span>
+                        QUẢN LÝ NHÂN VIÊN
+                    </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarColections">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="#">
+                                    <i class="uil-shop"></i>
+                                    QL Nhân viên
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Chấm Công
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Lương
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="side-nav-item">
+                    <a href="#" class="side-nav-link">
+                        <i class="dripicons-store font-17"></i>
+                        <span>
+                        QUẢN LÝ NGƯỜI DÙNG
+                    </span>
+                    </a>
+                </li>
+                <li class="side-nav-item">
+                    <a data-bs-toggle="collapse" href="#sidebarColections" aria-expanded="false"
+                       aria-controls="sidebarColections"
+                       class="side-nav-link">
+                        <i class="uil-bill"></i>
+                        <span>
+                        BÁO CÁO
+                    </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <div class="collapse" id="sidebarColections">
+                        <ul class="side-nav-second-level">
+                            <li>
+                                <a href="#">
+                                    <i class="uil-shop"></i>
+                                    Tồn Kho
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Tài Chính
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Nhân viên
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="uil-store-alt"></i>
+                                    Khách Hàng / NCC
                                 </a>
                             </li>
                         </ul>
@@ -163,14 +318,7 @@
                     </span>
                 </a>
             </li>
-            <li class="side-nav-item">
-                <a href="#" class="side-nav-link">
-                    <i class="uil-bill"></i>
-                    <span>
-                        Bills
-                    </span>
-                </a>
-            </li>
+            
         </ul>
     </div>
 </div>
