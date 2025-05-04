@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('ChucVu', 255)->nullable();
             $table->string('HDLaoDong', 255)->nullable();
             $table->integer('Trang_Thai')->nullable(); // INTEGER
+            // thêm 2 cột giới tính và cột ngày sinh
+    
             $table->timestamps();
         });
     }
