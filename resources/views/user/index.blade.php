@@ -37,7 +37,7 @@
             hash: true
         });
     </script>
-    <script>
+    {{-- <script>
         // URL API mới
         const apiUrl = 'warehouses/geojson';
         map.on('load', () => {
@@ -79,5 +79,5 @@
                     console.error('Error loading data:', error);
                 });
         });
-    </script>
+    </script> --}}
 @endpush

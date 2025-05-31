@@ -1,0 +1,30 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('employees', function (Blueprint $table) {
+            $table->foreignId('warehouse_id')->nullable()->constrained('warehouses');
+            // nếu bảng kho của bạn tên là 'kho' thì sửa lại dòng trên thành:
+            // $table->foreignId('warehouse_id')->nullable()->constrained('kho');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('employees', function (Blueprint $table) {
+            $table->dropForeign(['warehouse_id']);
+            $table->dropColumn('warehouse_id');
+        });
+    }
+};

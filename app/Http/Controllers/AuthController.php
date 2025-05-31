@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+
 class AuthController extends Controller
 {
     public function index(){
@@ -21,7 +22,7 @@ class AuthController extends Controller
         ]);
         if(Auth::attempt($fields, $request->remember)){
             // $request->session()->regenerate();
-            return redirect()->intended('users');
+            return redirect()->intended('categorys');
         }else {
             return back()->withErrors([
                 'fieled'=> 'Email hoặc mật khẩu sai, vui lòng nhập lại'
@@ -41,7 +42,6 @@ class AuthController extends Controller
          // validate
 
 $user = User::create($fields);
-    dd('ok');
         // User::query()->create([
 
 

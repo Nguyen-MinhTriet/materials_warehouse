@@ -83,13 +83,13 @@
                 <div class="collapse" id="sidebarCrm">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="crm-projects.html">Danh Mục</a>
+                            <a href="{{ route('categorys.index')}}">Danh Mục</a>
                         </li>
                         <li>
                             <a href="crm-orders-list.html">Vật Tư</a>
                         </li>
                         <li>
-                            <a href="crm-clients.html">Đơn Vị Tính</a>
+                            <a href="{{ route('units.index')}}">Đơn Vị Tính</a>
                         </li>
                         
                     </ul>
@@ -106,7 +106,7 @@
                 <div class="collapse" id="sidebarEcommerce">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="apps-ecommerce-products.html">Kho</a>
+                            <a href="{{ route('warehouses.index') }}">Kho</a>
                         </li>
                         <li>
                             <a href="apps-ecommerce-products-details.html">Tổng Quan Kho</a>
@@ -132,7 +132,7 @@
                             <a href="apps-email-read.html"> Phiếu Xuất</a>
                         </li>
                         <li>
-                            <a href="apps-email-read.html"> Phương Thức Thanh Toán</a>
+                            <a href="{{ route('payment_methods.index') }}"> Phương Thức Thanh Toán</a>
                         </li>
                     </ul>
                 </div>
@@ -148,7 +148,7 @@
                 <div class="collapse" id="sidebarProjects">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="apps-projects-list.html">QL Nhân viên</a>
+                            <a href="{{ route('employees.index')}}">QL Nhân viên</a>
                         </li>
                         <li>
                             <a href="apps-projects-details.html">Chấm Công</a>
@@ -163,7 +163,7 @@
             </li>
 
             <li class="side-nav-item">
-                <a href="apps-social-feed.html" class="side-nav-link">
+                <a href="{{ route('customers.index') }}" class="side-nav-link">
                     <i class="uil-rss"></i>
                     <span> Quản lý Khách Hàng </span>
                 </a>

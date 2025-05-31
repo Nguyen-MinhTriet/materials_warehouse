@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,13 +12,15 @@ return new class extends Migration
     {
         Schema::create('chamcong', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('NgayLam')->nullable();
-            $table->time('GioVao')->nullable();
-            $table->time('GioLam')->nullable();
-            $table->time('TangCa')->nullable();
-            $table->tinyInteger('TrangThai')->nullable();
-            $table->foreignId('id_NV')->nullable()->constrained('nhanvien');
-            $table->time('Gio_Ra')->nullable();
+
+            $table->dateTime('work_date')->nullable();         // NgayLam
+            $table->time('check_in')->nullable();              // GioVao
+            $table->time('work_hours')->nullable();            // GioLam
+            $table->time('overtime')->nullable();              // TangCa
+            $table->tinyInteger('status')->nullable();         // TrangThai
+            $table->foreignId('employee_id')->nullable()->constrained('employees'); // id_NV
+            $table->time('check_out')->nullable();             // Gio_Ra
+
             $table->timestamps();
         });
     }
