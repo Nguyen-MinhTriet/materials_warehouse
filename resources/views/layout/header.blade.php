@@ -49,52 +49,56 @@
                     <i class="uil-compress font-22 d-none"></i>
                 </a>
             </li>
-                <li class="dropdown">
-                    <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#"
-                        role="button" aria-haspopup="false" aria-expanded="false">
-                        <span class="account-user-avatar">
-                            <img src="{{ Auth::check() && Auth::user()->avatar ? asset(Auth::user()->hinh) : asset('images/default-avatar.png') }}"
-                                class="rounded-circle" width="40" height="40" alt="Avatar">
-                        </span>
-                        <span class="d-lg-flex flex-column gap-1 d-none">
-                            @if (Auth::check())
-                                <h5 class="my-0">{{ Auth::user()->name }}</h5>
-                                <h6 class="my-0 fw-normal">{{ Auth::user()->role ?? 'User' }}</h6>
-                            @else
-                                <h5 class="my-0">Guest</h5>
-                                <h6 class="my-0 fw-normal">Unknown</h6>
-                            @endif
+            <li class="dropdown">
+                <a class="nav-link dropdown-toggle arrow-none nav-user px-2" data-bs-toggle="dropdown" href="#"
+                    role="button" aria-haspopup="false" aria-expanded="false">
+                    {{-- <span class="account-user-avatar">
+                        <img src="{{ Auth::check() && Auth::user()->avatar ? asset(Auth::user()->hinh) : asset('images/default-avatar.png') }}"
+                            class="rounded-circle" width="40" height="40" alt="Avatar">
+                    </span> --}}
+                    <span class="account-user-avatar">
+                        <img src="{{ Auth::check() && Auth::user()->hinh ? asset('storage/' . Auth::user()->hinh) : asset('images/default-avatar.png') }}"
+                            class="rounded-circle" width="40" height="40" alt="Avatar">
+                    </span>
+                    <span class="d-lg-flex flex-column gap-1 d-none">
+                        @if (Auth::check())
+                            <h5 class="my-0">{{ Auth::user()->name }}</h5>
+                            <h6 class="my-0 fw-normal">{{ Auth::user()->role ?? 'User' }}</h6>
+                        @else
+                            <h5 class="my-0">Guest</h5>
+                            <h6 class="my-0 fw-normal">Unknown</h6>
+                        @endif
+                    </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
+                    <!-- item-->
+                    <div class=" dropdown-header noti-title">
+                        <h6 class="text-overflow m-0">Welcome !</h6>
+                    </div>
+
+                    <!-- item-->
+                    <a href="#" class="dropdown-item">
+                        <i class="uil-user-circle me-1"></i>
+                        <span>
+                            My Account
                         </span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated profile-dropdown">
-                        <!-- item-->
-                        <div class=" dropdown-header noti-title">
-                            <h6 class="text-overflow m-0">Welcome !</h6>
-                        </div>
 
-                        <!-- item-->
-                        <a href="#" class="dropdown-item">
-                            <i class="uil-user-circle me-1"></i>
-                            <span>
-                                My Account
-                            </span>
-                        </a>
+                    <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                        data-bs-target="#modal-change-password">
+                        <i class="uil-lock-open-alt me-1"></i>
+                        <span>
+                            Reset Password
+                        </span>
+                    </button>
 
-                        <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                            data-bs-target="#modal-change-password">
-                            <i class="uil-lock-open-alt me-1"></i>
-                            <span>
-                                Reset Password
-                            </span>
-                        </button>
+                    <a href="#" class="dropdown-item">
+                        <i class="uil-sign-out-alt me-1"></i>
+                        Logout
+                    </a>
+                </div>
+            </li>
 
-                        <a href="#" class="dropdown-item">
-                            <i class="uil-sign-out-alt me-1"></i>
-                            Logout
-                        </a>
-                    </div>
-                </li>
-      
         </ul>
     </div>
 </div>

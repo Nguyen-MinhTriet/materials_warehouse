@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('export_receipts', function (Blueprint $table) {
             $table->id();
-
             // Foreign keys
             $table->foreignId('employee_id')->nullable()->constrained('employees');        // id_NV → employees
             $table->foreignId('warehouse_id')->nullable()->constrained('warehouses');      // id_Kho → warehouses

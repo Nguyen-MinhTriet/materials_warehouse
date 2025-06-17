@@ -11,7 +11,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,70 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // 'invoice_code' => 'required|string|max:255|unique:export_receipts',
+            // 'customer_id' => 'nullable|exists:customers,id',
+            // 'issued_date' => 'nullable|date|before_or_equal:today',
+            // 'total_amount' => 'nullable|numeric|min:0',
+            // 'status' => 'required|in:0,1',
+            // 'employee_id' => 'required|exists:employees,id',
+            // 'warehouse_id' => 'required|exists:warehouses,id',
+            // 'payment_method_id' => 'required|exists:payment_methods,id',
+            // 'details.*.material_id' => 'nullable|exists:materials,id',
+            // 'details.*.batch_id' => 'nullable|exists:batches,id',
+            // 'details.*.quantity' => 'nullable|integer|min:1',
+            // 'details.*.total_price' => 'nullable|numeric',
+            // 'details' => 'required|array',
+
+            'employee_id' => 'required|exists:employees,id',
+            'warehouse_id' => 'required|exists:warehouses,id',
+            'customer_id' => 'required|exists:customers,id',
+            'payment_method_id' => 'required|exists:payment_methods,id',
+            'issued_date' => 'required|date|before_or_equal:today',
+            'total_amount' => 'nullable|numeric|min:0',
+            'status' => 'required|in:0,1',
+
+            // Validate chi tiết
+            'details' => 'required|array|min:1',
+            'details.*.material_id' => 'required|exists:materials,id',
+            'details.*.batch_id' => 'nullable|exists:batches,id',
+            'details.*.quantity' => 'required|integer|min:1',
+            'details.*.total_price' => 'required|numeric|min:0',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'employee_id' => 'Tên nhân viên',
+            'warehouse_id' => 'Kho',
+            'customer_id' => 'Khách hàng',
+            'payment_method_id' => 'Phương thức thanh toán',
+            'issued_date' => 'Ngày lập',
+            'total_amount' => 'Tổng tiền',
+            'status' => 'Trạng thái',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'employee_id.required' => ':attribute không được để trống.',
+            'employee_id.exists' => ':attribute không tồn tại.',
+            'warehouse_id.required' => ':attribute không được để trống.',
+            'warehouse_id.exists' => ':attribute không tồn tại.',
+            'customer_id.required' => ':attribute không được để trống.',
+            'customer_id.exists' => ':attribute không tồn tại.',
+            'issued_date.required' => ':attribute không được để trống.',
+            'issued_date.date' => ':attribute phải là định dạng ngày hợp lệ.',
+            'issued_date.before_or_equal' => ':attribute không được sau ngày hiện tại.',
+            'payment_method_id.required' => ':attribute không được để trống.',
+            'payment_method_id.exists' => ':attribute không tồn tại.',
+            'total_amount.numeric' => ':attribute phải là số.',
+            'total_amount.min' => ':attribute không được nhỏ hơn 0.',
+            'status.required' => ':attribute không được để trống.',
+            'status.in' => ':attribute không hợp lệ.',
+            '*.required' => ':attribute không được để trống.',
+            '*.exists' => ':attribute không tồn tại.',
         ];
     }
 }

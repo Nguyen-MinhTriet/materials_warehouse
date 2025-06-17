@@ -9,7 +9,6 @@
     <div class="card">
         <div class="card-body ">
             <a class="btn btn-success" href="{{ route('units.create')}}">  Thêm  </a>
-            <a href="{{ route('units.create')}}" >Themeeeee</a>
             {{-- <div class="form-group">
             <select id="select-course-name"></select>
         </div> --}}
@@ -30,7 +29,7 @@
                 <thead class="table-light">
                     <tr>
                         <th>#</th>
-                        <th>Tên Danh Mục</th>
+                        <th>Tên Đơn Vị</th>
                         <th>Trạng Thái</th>
                         <th>Create At</th>
                         <th>UpDate At</th>

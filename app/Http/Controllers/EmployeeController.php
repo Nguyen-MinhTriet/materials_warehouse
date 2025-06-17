@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Employee\DestroyRequest;
 use App\Http\Requests\Employee\StoreRequest;
+use App\Http\Requests\Employee\UpdateRequest;
 use App\Models\employee;
 use App\Http\Requests\StoreemployeeRequest;
 use App\Http\Requests\UpdateemployeeRequest;
+use App\Models\export_receipt;
+use App\Models\import_receipt;
 use App\Models\warehouse;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +23,7 @@ class EmployeeController extends Controller
      */
     private Builder $model;
 
-     public function __construct()
+    public function __construct()
     {
         // $this->model = Category::query();
         $this->model = (new employee())->query();
@@ -31,7 +35,9 @@ class EmployeeController extends Controller
     }
     public function index()
     {
-        return view('employee.index');
+        //return view('employee.index');
+        $employees = employee::with('warehouse')->get();
+        return view('employee.index', compact('employees'));
     }
     public function api()
     {
@@ -57,17 +63,14 @@ class EmployeeController extends Controller
                 return $object->status == 0 ? 'Hoạt Động' : 'Ngưng hoạt động';
             })
             ->addColumn('warehouse_name', function ($object) {
-                return $object->warehouse->name;
+                return $object->warehouse ? $object->warehouse->name : 'Không có kho';
             })
             ->addColumn('edit', function ($object) {
-                return '<a href="' . route('categorys.edit', $object->id) . '" class="btn btn-sm btn-primary">Sửa</a>';
+                return route('employees.edit', $object);
             })
-            ->addColumn('delete', function ($object) {
-                return '<form action="' . route('categorys.destroy', $object->id) . '" method="POST" onsubmit="return confirm(\'Bạn có chắc muốn xóa?\')">' .
-                    csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-sm btn-danger">Xoá</button></form>';
+            ->addColumn('destroy', function ($object) {
+                return route('employees.destroy', $object);
             })
-            ->rawColumns(['edit', 'delete']) // Cho phép render HTML trong cột edit và delete
             ->make(true);
     }
 
@@ -78,7 +81,7 @@ class EmployeeController extends Controller
     {
         $warehouses = warehouse::query()->get();
 
-        return view('employee.create',[
+        return view('employee.create', [
             'warehouses' => $warehouses,
         ]);
     }
@@ -91,8 +94,8 @@ class EmployeeController extends Controller
         $this->model->create($request->validated());
 
         return redirect()
-                ->route('employees.index')
-                ->with('success', 'Đã thêm thành công');
+            ->route('employees.index')
+            ->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -108,22 +111,47 @@ class EmployeeController extends Controller
      */
     public function edit(employee $employee)
     {
-        //
+        $warehouses = Warehouse::query()->get();
+        return view('employee.edit', [
+           'each' => $employee,
+            'warehouses' => $warehouses,
+        ]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateemployeeRequest $request, employee $employee)
+    public function update(UpdateRequest $request, $employeeId)
     {
-        //
+        $object = $this->model->find($employeeId);
+        $object->fill($request->validated());
+        $object->save();
+
+        return redirect()->route('employees.index');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(employee $employee)
+    public function destroy(DestroyRequest $request ,$employeeId)
     {
-        //
+        // Cập nhật warehouse_id thành NULL cho các bản ghi liên quan
+        export_receipt::where('employee_id', $employeeId)->update(
+            ['employee_id' => null],
+        );
+        // Cập nhật warehouse_id thành NULL cho các bản ghi liên quan
+        import_receipt::where('employee_id', $employeeId)->update(
+            ['employee_id' => null],
+        );
+        // Xóa bản ghi trong bảng warehouses
+        $this->model->where('id', $employeeId)->delete();
+
+        return response([
+            'status' => true,
+            'message' => 'Xóa kho thành công'
+        ], 200);
+
     }
 }

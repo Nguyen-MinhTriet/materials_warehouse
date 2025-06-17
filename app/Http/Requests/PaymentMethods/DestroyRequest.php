@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\PaymentMethods;
 
+use App\Models\export_receipt;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DestroyRequest extends FormRequest
 {
@@ -22,7 +24,9 @@ class DestroyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'payment_methods' => [
+                Rule::exists(export_receipt::class, 'id'),
+            ],
         ];
     }
 }

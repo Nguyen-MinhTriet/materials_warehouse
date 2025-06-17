@@ -11,7 +11,7 @@
     <div class="card">
 
         <div class="card-body ">
-            <a class="btn btn-success" href="{{ route("customers.create") }} ">
+            <a class="btn btn-success" href="{{ route('customers.create') }} ">
                 Thêm
             </a>
             {{-- <a class="btn btn-success" href=" {{ route('employees.create') }} ">
@@ -54,7 +54,7 @@
 @endsection
 
 @push('js')
-     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script
@@ -62,23 +62,105 @@
     </script>
     <script>
         $(function() {
+            let buttonCommon = {
+                exportOptions: {
+                    columns: ':visible :not(.not-export)'
+                }
+            };
             let table = $('#table-index').DataTable({
+                dom: 'Blfrtip',
+                select: true,
+                buttons: [
+                    $.extend(true, {}, buttonCommon, {
+                        extend: 'excelHtml5',
+                    }),
+                    $.extend(true, {}, buttonCommon, {
+                        extend: 'print',
+                    }),
+                    'colvis'
+                ],
+                // đoạn này xử lý print ra không dính edit vs delete
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('customers.api') !!}',
-                columnDefs: [
-                    { className: "not-export", targets: [4, 5] }
-                ],
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'nickname', name: 'nickname' },
-                    { data: 'phone', name: 'phone' },
-                    { data: 'address', name: 'address' },
-                    { data: 'status', name: 'status' },
-                    { data: 'edit', name: 'edit', },
-                    { data: 'delete', name: 'delete', orderable: false, searchable: false }
+                columnDefs: [{
+                    className: "not-export",
+                    targets: [6, 7]
+                }],
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'nickname',
+                        name: 'nickname'
+                    },
+                    {
+                        data: 'phone',
+                        name: 'phone'
+                    },
+                    {
+                        data: 'address',
+                        name: 'address'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'edit',
+                        target: 6,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `<a class="btn btn-primary" href="${data}">
+                        Edit
+                        </a>`;
+                        }
+                    },
+                    {
+                        data: 'destroy',
+                        target: 7,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `
+                            <form action="${data}" method="POST"> 
+                                @csrf
+                                @method('DELETE')
+                                <button class=" btn-delete btn btn-danger" type='button'> Delete</button>    
+                            </form>
+                        `;
+                        }
+                    },
+                    // {
+                    //     data: 'delete',
+                    //     name: 'delete',
+                    //     orderable: false,
+                    //     searchable: false
+                    // }
                 ]
+            });
+            $(document).on('click', '.btn-delete', function() {
+                let form = $(this).parents('form');
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    DataType: 'json',
+                    data: form.serialize(),
+                    success: function() {
+                        console.log("success");
+                        table.draw();
+
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
             });
         });
     </script>

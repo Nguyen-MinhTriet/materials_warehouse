@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Employee;
 
+use App\Models\employee;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DestroyRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,9 @@ class DestroyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'employees' => [
+                Rule::exists(employee::class, 'id'),
+            ],
         ];
     }
 }

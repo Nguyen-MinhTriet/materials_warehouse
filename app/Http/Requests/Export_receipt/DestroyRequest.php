@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Export_receipt;
 
+use App\Models\export_receipt;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DestroyRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,9 @@ class DestroyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'export_receipts' => [
+                Rule::exists(export_receipt::class, 'id'),
+            ],
         ];
     }
 }

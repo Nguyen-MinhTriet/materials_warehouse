@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaymentMethods\DestroyRequest;
 use App\Http\Requests\PaymentMethods\StoreRequest;
 use App\Http\Requests\PaymentMethods\UpdateRequest;
+use App\Models\export_receipt;
 use App\Models\PaymentMethod;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Route;
@@ -44,14 +45,17 @@ class PaymentMethodController extends Controller
             })
 
             ->addColumn('edit', function ($object) {
-                return '<a href="' . route('payment_methods.edit', $object->id) . '" class="btn btn-sm btn-primary">Sửa</a>';
+                return route('payment_methods.edit', $object);
             })
-            ->addColumn('delete', function ($object) {
-                return '<form action="' . route('payment_methods.destroy', $object->id) . '" method="POST" onsubmit="return confirm(\'Bạn có chắc muốn xóa?\')">' .
-                    csrf_field() . method_field('DELETE') .
-                    '<button type="submit" class="btn btn-sm btn-danger">Xoá</button></form>';
+            ->addColumn('destroy', function ($object) {
+                return route('payment_methods.destroy', $object);
             })
-            ->rawColumns(['edit', 'delete']) // Cho phép render HTML trong cột edit và delete
+            // ->addColumn('delete', function ($object) {
+            //     return '<form action="' . route('categorys.destroy', $object->id) . '" method="POST" onsubmit="return confirm(\'Bạn có chắc muốn xóa?\')">' .
+            //         csrf_field() . method_field('DELETE') .
+            //         '<button type="submit" class="btn btn-sm btn-danger">Xoá</button></form>';
+            // })
+            // ->rawColumns(['edit', 'delete']) // Cho phép render HTML trong cột edit và delete
             ->make(true);
     }
     /**
@@ -106,10 +110,19 @@ class PaymentMethodController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DestroyRequest $payment_methods, $payment_methodsId)
+    public function destroy(DestroyRequest $request, $payment_methodsId)
     {
+        export_receipt::where('payment_method_id', $payment_methodsId)->update(
+            ['payment_method_id' => null],
+        );
         $this->model->where('id', $payment_methodsId)->delete();
-        return redirect()->route('payment_methods.index')->with('success', 'Xoá danh mục thành công!');
+
+        return response([
+            'status' => true,
+            'message' => 'Xóa kho thành công'
+        ], 200);
+        // $this->model->where('id', $payment_methodsId)->delete();
+        // return redirect()->route('payment_methods.index')->with('success', 'Xoá danh mục thành công!');
 
     }
 }

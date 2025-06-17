@@ -52,14 +52,14 @@
                     aria-controls="sidebarDashboards" class="side-nav-link">
                     <i class="uil-home-alt"></i>
                     <span class="badge bg-success float-end">5</span>
-                    <span> Dashboards </span>
+                    <span > Dashboards </span>
                 </a>
                 <div class="collapse" id="sidebarDashboards">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="dashboard-analytics.html">Analytics</a>
+                            <a href="{{ route('dashboards.index') }}">Analytics</a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </li>
@@ -67,7 +67,7 @@
             <li class="side-nav-title">Chức Năng</li>
 
             <li class="side-nav-item">
-                <a href="apps-chat.html" class="side-nav-link">
+                <a href="{{ route('suppliers.index') }}" class="side-nav-link">
                     <i class="uil-comments-alt"></i>
                     <span> Quản Lý NCC </span>
                 </a>
@@ -83,15 +83,18 @@
                 <div class="collapse" id="sidebarCrm">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{ route('categorys.index')}}">Danh Mục</a>
+                            <a href="{{ route('categorys.index') }}">Danh Mục</a>
                         </li>
                         <li>
-                            <a href="crm-orders-list.html">Vật Tư</a>
+                            <a href="{{ route('materials.index') }}">Vật Tư</a>
                         </li>
                         <li>
-                            <a href="{{ route('units.index')}}">Đơn Vị Tính</a>
+                            <a href="{{ route('units.index') }}">Đơn Vị Tính</a>
                         </li>
-                        
+                        <li>
+                            <a href="{{ route('batches.index') }}">Lô Hàng</a>
+                        </li>
+
                     </ul>
                 </div>
             </li>
@@ -111,7 +114,7 @@
                         <li>
                             <a href="apps-ecommerce-products-details.html">Tổng Quan Kho</a>
                         </li>
-                        
+
                     </ul>
                 </div>
             </li>
@@ -126,10 +129,16 @@
                 <div class="collapse" id="sidebarEmail">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="apps-email-inbox.html">Phiếu Nhập</a>
+                            <a href="{{ route('import_receipts.index') }}">Phiếu Nhập</a>
                         </li>
                         <li>
-                            <a href="apps-email-read.html"> Phiếu Xuất</a>
+                            <a href="{{ route('export_receipts.index') }}"> Phiếu Xuất</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('export_receipts.index') }}">Xem Chi Tiết Phiếu Nhập</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('export_receipt_detail.index') }}">Xem Chi Tiết Phiếu Xuất</a>
                         </li>
                         <li>
                             <a href="{{ route('payment_methods.index') }}"> Phương Thức Thanh Toán</a>
@@ -148,7 +157,7 @@
                 <div class="collapse" id="sidebarProjects">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="{{ route('employees.index')}}">QL Nhân viên</a>
+                            <a href="{{ route('employees.index') }}">QL Nhân viên</a>
                         </li>
                         <li>
                             <a href="apps-projects-details.html">Chấm Công</a>
@@ -213,7 +222,7 @@
                 <div class="collapse" id="sidebarPages">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="pages-profile.html">  Admins</a>
+                            <a href="pages-profile.html"> Admins</a>
                         </li>
                         <li>
                             <a href="pages-profile-2.html"> Staffs</a>
@@ -221,16 +230,16 @@
                         <li>
                             <a href="pages-invoice.html">Customers</a>
                         </li>
-                        
+
 
                     </ul>
                 </div>
             </li>
 
-           
-   
-      
- 
+
+
+
+
 
         </ul>
         <!--- End Sidemenu -->

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Supplier;
 
+use App\Models\Supplier;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DestroyRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +24,13 @@ class DestroyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'suppliers' => [
+                Rule::exists(Supplier::class, 'id'),
+            ],
         ];
+    }
+         protected function prepareForValidation()
+    {
+        $this->merge(['suppliers' => $this->route('suppliers')]);
     }
 }

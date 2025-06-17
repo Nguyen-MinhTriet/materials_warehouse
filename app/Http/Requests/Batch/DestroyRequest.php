@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests\Batch;
 
+
+use App\Models\batch;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DestroyRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class DestroyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +25,9 @@ class DestroyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'batchs' => [
+                Rule::exists(batch::class, 'id'),
+            ],
         ];
     }
 }

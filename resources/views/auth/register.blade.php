@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +14,13 @@
 
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <style>
-      .auth-fluid{
-        background-image: url({{ asset('assets/system/truongdhkg.jpg')}}) ;
+        .auth-fluid {
+            background-image: url({{ asset('assets/system/truongdhkg.jpg') }});
 
-      }
-
+        }
     </style>
 </head>
+
 <body class="authentication-bg pb-0">
     <div class="auth-fluid">
         <!--Auth fluid left content -->
@@ -29,7 +30,7 @@
                 <!-- Logo -->
                 <div class="auth-brand text-center text-lg-start">
                     <a href="index.html" class="logo-dark">
-                        <span><img src="{{ asset('assets/system/logo.webp')  }}" alt="dark logo" height="50"></span>
+                        <span><img src="{{ asset('assets/system/logo.webp') }}" alt="dark logo" height="50"></span>
                     </a>
 
                 </div>
@@ -38,11 +39,15 @@
                     <h4 class="mt-3">Đăng Ký tài khoản</h4>
                     {{-- <p class="text-muted mb-4">Nhập Mật khẩu và Email </p> --}}
                     <!-- form -->
-                    <form method="post" action="{{ route('process_register') }}">
-                      @csrf
+                    <form method="post" action="{{ route('process_register') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-3">
                             <label for="fullname" class="form-label">Họ Tên</label>
-                            <input class="form-control" type="text" name="name" placeholder="Nhập họ tên" >
+                            <input class="form-control" type="text" name="name" placeholder="Nhập họ tên">
+                        </div>
+                        <div class="mb-3">
+                            <label for="example-fileinput" class="form-label">Chọn hình</label>
+                            <input type="file" name="hinh" class="form-control">
                         </div>
                         <div class="mb-3">
                             <label for="emailaddress" class="form-label">Email</label>
@@ -63,17 +68,19 @@
                             </div>
                         </div>
                         <div class="mb-0 d-grid text-center">
-                            <button class="btn btn-primary" type="submit"><i class="fas fa-user-circle"></i>Đăng Ký </button>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-user-circle"></i>Đăng Ký
+                            </button>
                         </div>
-                      
+
                     </form>
                     <!-- end form-->
                 </div>
 
-            </div> 
+            </div>
         </div>
 
     </div>
-    
+
 </body>
+
 </html>

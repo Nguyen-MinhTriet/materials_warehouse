@@ -11,6 +11,7 @@
     <link href="{{ asset('css/app-saas.min.css') }}" rel="stylesheet" type="text/css" id="app-style" />
     <link href="{{ asset('css/icons.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet" />
+
     @stack('css')
 </head>
 
@@ -38,6 +39,26 @@
                     </div>
 
                     <div class="row">
+                        @if ($errors->any())
+                            <div class="col-12">
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        @endif
+                        @if (session()->has('success'))
+                            <div class="col-12">
+                                <div class="alert alert-success">
+                                    
+                                    {{ session()->get('success') }}
+                                </div>
+                            </div>
+                        @endif
+                        
                         <div class="col-12">
                             @yield('content')
                         </div>
@@ -58,6 +79,7 @@
     <script src="{{ asset('js/hyper-config.js') }}"></script>
     <script src="{{ asset('js/vendor.min.js') }}"></script>
     <script src="{{ asset('js/app.min.js') }}"></script>
+    
     @stack('js')
 
 </body>

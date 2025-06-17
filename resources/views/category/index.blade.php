@@ -66,16 +66,7 @@
                 select: true,
                 buttons: [
                     $.extend(true, {}, buttonCommon, {
-                        extend: 'copyHtml5',
-                    }),
-                    $.extend(true, {}, buttonCommon, {
-                        extend: 'csvHtml5',
-                    }),
-                    $.extend(true, {}, buttonCommon, {
                         extend: 'excelHtml5',
-                    }),
-                    $.extend(true, {}, buttonCommon, {
-                        extend: 'pdfHtml5',
                     }),
                     $.extend(true, {}, buttonCommon, {
                         extend: 'print',

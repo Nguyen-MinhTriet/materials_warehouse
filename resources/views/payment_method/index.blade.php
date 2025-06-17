@@ -1,6 +1,8 @@
 @extends('layout.master')
 @push('css')
-    <link href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-2.1.6/b-3.1.2/b-colvis-3.1.2/b-html5-3.1.2/b-print-3.1.2/date-1.5.3/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/sc-2.4.3/sb-1.8.0/sl-2.0.5/datatables.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.datatables.net/v/dt/jszip-3.10.1/dt-2.1.6/b-3.1.2/b-colvis-3.1.2/b-html5-3.1.2/b-print-3.1.2/date-1.5.3/fc-5.0.1/fh-4.0.1/r-3.0.3/rg-1.5.0/sc-2.4.3/sb-1.8.0/sl-2.0.5/datatables.min.css"
+        rel="stylesheet">
     {{-- cái link nay dể đây vô file master datatable --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
@@ -33,8 +35,8 @@
                     <tr>
                         <th>#</th>
                         <th>Tên Danh Mục</th>
-                        <th>  Create At</th>
-                        <th>  Create At</th>
+                        <th> Create At</th>
+                        <th> Create At</th>
                         <th>Sửa</th>
                         <th>Xoá</th>
                     </tr>
@@ -46,8 +48,8 @@
 @endsection
 
 @push('js')
-    {{-- đẩy vào javascript     --}} 
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> 
+    {{-- đẩy vào javascript     --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script
@@ -55,23 +57,98 @@
     </script>
     <script>
         $(function() {
+            let buttonCommon = {
+                exportOptions: {
+                    columns: ':visible :not(.not-export)'
+                }
+            };
             let table = $('#table-index').DataTable({
+                dom: 'Blfrtip',
+                select: true,
+                buttons: [
+                    $.extend(true, {}, buttonCommon, {
+                        extend: 'excelHtml5',
+                    }),
+                    $.extend(true, {}, buttonCommon, {
+                        extend: 'print',
+                    }),
+                    'colvis'
+                ],
+                // đoạn này xử lý print ra không dính edit vs delete
                 processing: true,
                 serverSide: true,
                 ajax: '{!! route('payment_methods.api') !!}',
-                columnDefs: [
-                    { className: "not-export", targets: [4, 5] }
-                ],
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'name', name: 'name' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'updated_at', name: 'updated_at' },
-                    { data: 'edit', name: 'edit', },
-                    { data: 'delete', name: 'delete', orderable: false, searchable: false }
+                columnDefs: [{
+                    className: "not-export",
+                    targets: [4, 5]
+                }],
+                columns: [{
+                        data: 'id',
+                        name: 'id'
+                    },
+                    {
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'created_at',
+                        name: 'created_at'
+                    },
+                    {
+                        data: 'updated_at',
+                        name: 'updated_at'
+                    },
+                    {
+                        data: 'edit',
+                        target: 8,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `<a class="btn btn-primary" href="${data}">
+                        Edit
+                        </a>`;
+                        }
+                    },
+                    {
+                        data: 'destroy',
+                        target: 9,
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, row, meta) {
+                            return `
+                            <form action="${data}" method="POST"> 
+                                @csrf
+                                @method('DELETE')
+                                <button class=" btn-delete btn btn-danger" type='button'> Delete</button>    
+                            </form>
+                        `;
+                        }
+                    },
+                    // {
+                    //     data: 'delete',
+                    //     name: 'delete',
+                    //     orderable: false,
+                    //     searchable: false
+                    // }
                 ]
+            });
+            $(document).on('click', '.btn-delete', function() {
+                let form = $(this).parents('form');
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    DataType: 'json',
+                    data: form.serialize(),
+                    success: function() {
+                        console.log("success");
+                        table.draw();
+
+                    },
+                    error: function() {
+                        console.log("error");
+                    }
+                });
             });
         });
     </script>
-
 @endpush
